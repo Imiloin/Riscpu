@@ -1,11 +1,11 @@
-module data_mem (
+module data_mem (  // Data Memory
     input  wire        clk,
-    input  wire        ce,
-    input  wire        we,
-    input  wire [31:0] addr,
-    input  wire [31:0] data_i,
-    output reg  [31:0] data_o,
-    output wire [31:0] verify
+    input  wire        ce,      // enable
+    input  wire        we,      // write enable, 1 for write, 0 for read
+    input  wire [31:0] addr,    // data address
+    input  wire [31:0] data_i,  // data input for write
+    output reg  [31:0] data_o,  // data output for read
+    output wire [31:0] verify   // verification data for read
 
 );
 

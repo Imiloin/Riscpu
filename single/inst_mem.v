@@ -1,7 +1,7 @@
-module inst_mem (
-    input  wire        ce,
-    input  wire [31:0] addr,
-    output reg  [31:0] inst
+module inst_mem (  // Instruction Memory
+    input  wire        ce,    // enable
+    input  wire [31:0] addr,  // instruction address
+    output reg  [31:0] inst   // output instruction
 );
 
     reg [31:0] inst_memory[0:1000];
