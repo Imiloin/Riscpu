@@ -14,6 +14,7 @@ module data_mem (  // Data Memory
 
     assign verify = {data[15], data[14], data[13], data[12]};
 
+    // write
     always @(posedge clk) begin
         if (ce == 1'b0) begin
 
@@ -25,6 +26,7 @@ module data_mem (  // Data Memory
         end
     end
 
+    // read
     always @* begin
         if (ce == 1'b0) begin
             data_o <= 32'b0;

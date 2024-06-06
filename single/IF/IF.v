@@ -4,11 +4,20 @@
 module IF (  // Instruction Fetch Unit, fetches the next instruction to be executed
     input clk,
     input rst,
+    input [`XLEN-1:0] inst_i,  // input instruction from instruction memory
     input pcsrc,  // select the source of pc
     input [`PC_WIDTH-1:0] sum,  // pc + imm
     output [`PC_WIDTH-1:0] pcplus4,  // pc + 4
-    output reg [`PC_WIDTH-1:0] pc  // next pc to be executed
+    output reg [`PC_WIDTH-1:0] pc,  // next pc to be executed
+    output [`XLEN-1:0] inst_addr_o,  // instruction fetch address
+    output inst_ce_o,   // instruction fetch enable
+    output [`XLEN-1:0] instruction  // instruction fetched
 );
+    
+    assign inst_ce_o = ~rst;  // enable instruction fetch by default
+    
+    assign instruction = inst_i;
+    
     /////// should pc be a reg or wire?
     assign pcplus4 = pc + 4;
 
@@ -21,5 +30,7 @@ module IF (  // Instruction Fetch Unit, fetches the next instruction to be execu
             pc <= pcplus4;
         end
     end
+
+    assign pc = inst_addr_o;
 
 endmodule
