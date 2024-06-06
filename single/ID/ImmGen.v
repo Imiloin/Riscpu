@@ -13,6 +13,7 @@ module ImmGen (
 
     // `instruction[1:0]` must be `2'b11` for valid RV32I instructions
     // see http://riscvbook.com/chinese/RISC-V-Reader-Chinese-v2p1.pdf p.27
+    // already "shift left 1"
     always @(*) begin
         case (opcode[6:2])
             `OP_STORE:  // S-type

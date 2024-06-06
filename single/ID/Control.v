@@ -20,8 +20,9 @@ module Control (
     always @(opcode) begin
         case (opcode[6:2])
             `OP_REG: ctrlcode = 8'b00100010;  // R-type
+            // `OP_JALR: ctrlcode = 8'b00000000;  // I-type, jalr
             `OP_IMML: ctrlcode = 8'b11110000;  // I-type, ld like
-            `OP_IMMOP: ctrlcode = 8'b10100010;  // I-type, addi like
+            `OP_IMMOP: ctrlcode = 8'b10100011;  // I-type, addi like  ////////// aluop?
             `OP_STORE: ctrlcode = 8'b10001000;  // S-type
             `OP_BRANCH: ctrlcode = 8'b00000101;  // B-type  
             // `OP_LUI: ctrlcode = 8'b00000000;  // U-type

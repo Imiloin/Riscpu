@@ -1,10 +1,10 @@
 `define XLEN 32  // instruction width
-`define FUNC7_WIDTH 7
+`define FUNCT7_WIDTH 7
 `define RS_WIDTH 5
-`define FUNC3_WIDTH 3
+`define FUNCT3_WIDTH 3
 `define OPCODE_WIDTH 7
 
-`define FUNC7 31:25
+`define FUNCT7 31:25
 `define RS2 24:20
 `define RS1 19:15
 `define FUNCT3 14:12
@@ -21,6 +21,7 @@
 
 
 `define OP_REG 5'b01100	// R-type, register operation
+// `define OP_JALR 5'b11001 // I-type, jump and link register
 `define OP_IMML 5'b00000 // I-type, load
 `define OP_IMMOP 5'b00100 // I-type, immediate operation
 // `define OP_IMMFENCE 5'b00011 // I-type, fence instruction
