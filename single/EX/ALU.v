@@ -11,8 +11,8 @@ module ALU (
     input inst30,
     input [`FUNCT3_WIDTH-1:0] funct3,
     input [1:0] aluop,  // ALU operation, 00 add to get an address, 01 B type, 10 R type, 11 I type(operation)
-    output alu_branch,  // branch signal
-    output [`REG_DATA_WIDTH-1:0] alu_result
+    output reg alu_branch,  // branch signal
+    output reg [`REG_DATA_WIDTH-1:0] alu_result
 );
 
     wire signed [`REG_DATA_WIDTH-1:0] alu_op1, alu_op2;
@@ -32,7 +32,7 @@ module ALU (
             end
             2'b01: begin  // B type
                 alu_result = 0;
-                case (funct3)
+                case (funct3)  ////// 其实只需要 zero 和 lessthan，合并为1个信号
                     3'b000: begin  // beq
                         alu_branch = (alu_op1 == alu_op2);
                     end
@@ -60,7 +60,7 @@ module ALU (
                 alu_branch = 0;
                 case ({
                     inst30, funct3
-                })
+                })  ////// 拆成两部分吧
                     4'b0000: begin  // add
                         alu_result = alu_op1 + alu_op2;
                     end

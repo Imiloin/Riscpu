@@ -12,9 +12,11 @@ module Control (
     output memwrite,
     output alusrc,
     output regwrite,
-    output getpcplus4  // use pc + 4 when memtoreg = 0
+    output reg getpcplus4  // use pc + 4 when memtoreg = 0
 );
 
+    reg [7:0] ctrlcode;
+    
     assign {alusrc, memtoreg, regwrite, memread, memwrite, branch, aluop} = ctrlcode;
 
     always @(opcode) begin

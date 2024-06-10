@@ -1,3 +1,10 @@
+// uncomment the lines below to enable debug mode
+`define DEBUG
+`timescale 1ps / 1ps
+// ----------------------------------------------------------------------------
+
+
+
 `define XLEN 32  // instruction width
 `define FUNCT7_WIDTH 7
 `define RS_WIDTH 5

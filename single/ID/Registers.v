@@ -26,7 +26,35 @@ module Registers (
         end
     end
 
-    assign read_data1 = registers[rs1];
-    assign read_data2 = registers[rs2];
+    always @(*) begin
+        if (rst) begin
+            read_data1 = 0;
+            read_data2 = 0;
+        end else begin
+            read_data1 = registers[rs1];
+            read_data2 = registers[rs2];
+        end
+    end
+
+
+// Debugging
+`ifdef DEBUG
+    integer i;
+
+    always @(posedge clk) begin
+        if (regwrite) begin
+            $display("Time: %t, Written data: %h to register %d", $time,
+                     write_data, rd);
+        end
+    end
+    
+    initial begin
+        #100000;
+        $display("Registers content:");
+        for (i = 0; i < `REG_SIZE; i = i + 1) begin
+            $display("Reg[%d] = %h", i, registers[i]);
+        end
+    end
+`endif
 
 endmodule

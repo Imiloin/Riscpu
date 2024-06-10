@@ -72,7 +72,6 @@ module riscv (
         .memwrite(memwrite),
         .alusrc(alusrc),
         // .regwrite(regwrite),  // not used for single-cycle implementation
-        .write(write),
         .getpcplus4(getpcplus4),
         .read_data1(read_data1),
         .read_data2(read_data2),
@@ -109,8 +108,11 @@ module riscv (
         .read_data2(read_data2),
         .pcplus4(pcplus4),
         .getpcplus4(getpcplus4),
+        .branch(branch),
+        .alu_branch(alu_branch),
         .data_we_o(data_we_o),
         .data_ce_o(data_ce_o),
+        .pcsrc(pcsrc),
         .data_addr_o(data_addr_o),
         .data_o(data_o),
         .wb_data(wb_data)

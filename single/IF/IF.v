@@ -31,6 +31,6 @@ module IF (  // Instruction Fetch Unit, fetches the next instruction to be execu
         end
     end
 
-    assign pc = inst_addr_o;
+    assign inst_addr_o = pc;
 
 endmodule

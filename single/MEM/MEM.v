@@ -10,8 +10,11 @@ module MEM (  // Memory module, access the data memory
     input [`REG_DATA_WIDTH-1:0] read_data2,  // data from register file or memory for rs2
     input [`PC_WIDTH-1:0] pcplus4,  // pc + 4 form IF
     input getpcplus4,  // use pc + 4 when memtoreg = 0
+    input branch,  // branch from control unit
+    input alu_branch,  // branch from ALU
     output data_we_o,  // data memory write enable, 1 for write, 0 for read
     output data_ce_o,  // data memory enable
+    output pcsrc,  // pc source, 0 for pc + 4, 1 for alu result
     output [`REG_DATA_WIDTH-1:0] data_addr_o,  // data memory address
     output [`REG_DATA_WIDTH-1:0] data_o,  // data memory write data
     output [`REG_DATA_WIDTH-1:0] wb_data  // data to write back when memtoreg is 0
@@ -26,5 +29,13 @@ module MEM (  // Memory module, access the data memory
     assign data_o = read_data2;
 
     assign wb_data = getpcplus4? pcplus4 : alu_result;  // pc + 4 for jal, x[rd] = pc + 4
+
+    Branch u_branch (
+        .clk(clk),
+        .rst(rst),
+        .branch(branch),
+        .alu_branch(alu_branch),
+        .pcsrc(pcsrc)
+    );
 
 endmodule
