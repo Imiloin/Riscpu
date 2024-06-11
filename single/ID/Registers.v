@@ -37,17 +37,17 @@ module Registers (
     end
 
 
-// Debugging
+    // Debugging
 `ifdef DEBUG
     integer i;
 
     always @(posedge clk) begin
         if (regwrite) begin
-            $display("Time: %t, Written data: %h to register %d", $time,
-                     write_data, rd);
+            $display("Time: %t, Written data: %h(%d) to register %d", $time,
+                     write_data, write_data, rd);
         end
     end
-    
+
     initial begin
         #100000;
         $display("Registers content:");

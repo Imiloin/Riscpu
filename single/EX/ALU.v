@@ -58,37 +58,29 @@ module ALU (
             end
             2'b10: begin  // R type
                 alu_branch = 0;
-                case ({
-                    inst30, funct3
-                })  ////// 拆成两部分吧
-                    4'b0000: begin  // add
-                        alu_result = alu_op1 + alu_op2;
+                case (funct3)
+                    3'b000: begin  // add or sub
+                        alu_result = inst30 ? alu_op1 - alu_op2 : alu_op1 + alu_op2;
                     end
-                    4'b1000: begin  // sub
-                        alu_result = alu_op1 - alu_op2;
-                    end
-                    4'b0001: begin  // sll
+                    3'b001: begin  // sll
                         alu_result = alu_op1 << alu_op2[4:0];
                     end
-                    4'b0010: begin  // slt //////
+                    3'b010: begin  // slt //////
                         alu_result = (alu_op1 < alu_op2);
                     end
-                    4'b0011: begin  // sltu //////
+                    3'b011: begin  // sltu //////
                         alu_result = (alu_op1_unsigned < alu_op2_unsigned);
                     end
-                    4'b0100: begin  // xor
+                    3'b100: begin  // xor
                         alu_result = alu_op1 ^ alu_op2;
                     end
-                    4'b0101: begin  // srl
-                        alu_result = alu_op1 >> alu_op2[4:0];
+                    3'b101: begin  // srl or sra //////
+                        alu_result = inst30 ? alu_op1 >>> alu_op2[4:0] : alu_op1 >> alu_op2[4:0];
                     end
-                    4'b1100: begin  // sra //////
-                        alu_result = alu_op1 >>> alu_op2[4:0];
-                    end
-                    4'b0110: begin  // or
+                    3'b110: begin  // or
                         alu_result = alu_op1 | alu_op2;
                     end
-                    4'b0111: begin  // and
+                    3'b111: begin  // and
                         alu_result = alu_op1 & alu_op2;
                     end
                     default: begin  // should not happen

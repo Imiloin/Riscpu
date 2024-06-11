@@ -61,4 +61,23 @@ module riscv_soc_tb ();
         .verify(verify)
     );
 
+
+    // Debugging
+    `include "riscv_def.v"
+`ifdef DEBUG
+    always @(posedge clk) begin
+        if (data_mem0.ce == 1'b1 && data_mem0.we == 1'b1) begin
+            $display("Time: %t, write operation at address %h with data %h(%d)",
+                     $time, data_mem0.addr, data_mem0.data_i, data_mem0.data_i);
+        end
+    end
+
+    always @(posedge clk) begin
+        if (data_mem0.ce == 1'b1 && {inst[14:12], inst[6:0]} == 10'b0100000011) begin
+            $display("Time: %t, read operation at address %h, data read %h(%d)",
+                     $time, data_mem0.addr, data_mem0.data_o, data_mem0.data_o);
+        end
+    end
+`endif
+
 endmodule
