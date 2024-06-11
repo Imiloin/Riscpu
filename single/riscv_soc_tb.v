@@ -73,7 +73,7 @@ module riscv_soc_tb ();
     end
 
     always @(posedge clk) begin
-        if (data_mem0.ce == 1'b1 && {inst[14:12], inst[6:0]} == 10'b0100000011) begin
+        if (data_mem0.ce == 1'b1 && {inst[14:12], inst[6:0]} == 10'b010_0000011) begin
             $display("Time: %t, read operation at address %h, data read %h(%d)",
                      $time, data_mem0.addr, data_mem0.data_o, data_mem0.data_o);
         end

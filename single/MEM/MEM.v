@@ -12,12 +12,15 @@ module MEM (  // Memory module, access the data memory
     input getpcplus4,  // use pc + 4 when memtoreg = 0
     input branch,  // branch from control unit
     input alu_branch,  // branch from ALU
+    input [`PC_WIDTH-1:0] sum, // pc + imm
+    input alu2pc, // use alu result as pc (jalr)
     output data_we_o,  // data memory write enable, 1 for write, 0 for read
     output data_ce_o,  // data memory enable
-    output pcsrc,  // pc source, 0 for pc + 4, 1 for alu result
+    output pcsrc,  // pc source, 0 for pc + 4, 1 for pctarget
     output [`REG_DATA_WIDTH-1:0] data_addr_o,  // data memory address
     output [`REG_DATA_WIDTH-1:0] data_o,  // data memory write data
-    output [`REG_DATA_WIDTH-1:0] wb_data  // data to write back when memtoreg is 0
+    output [`REG_DATA_WIDTH-1:0] wb_data,  // data to write back when memtoreg is 0
+    output [`PC_WIDTH-1:0] pctarget  // target address for branch
 );
 
     assign data_ce_o = ~rst;  // enable data memory by default
@@ -30,11 +33,14 @@ module MEM (  // Memory module, access the data memory
 
     assign wb_data = getpcplus4? pcplus4 : alu_result;  // pc + 4 for jal, x[rd] = pc + 4
 
+    assign pctarget = alu2pc? alu_result : sum;  // use alu result as pc for jalr
+
     Branch u_branch (
         .clk(clk),
         .rst(rst),
         .branch(branch),
         .alu_branch(alu_branch),
+        .alu2pc(alu2pc),
         .pcsrc(pcsrc)
     );
 

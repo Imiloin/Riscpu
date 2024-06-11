@@ -8,6 +8,7 @@ module EX (  // Execution Unit, execute operation or calculate address
     input [`REG_DATA_WIDTH-1:0] read_data1,  // data from register file or memory for rs1
     input [`REG_DATA_WIDTH-1:0] read_data2,  // data from register file or memory for rs2
     input [`IMM_WIDTH-1:0] immediate,  // immediate value from ImmGen
+    input aluinputpc,  // ALU 1st operand source, 0 for rs1, 1 for pc
     input alusrc,  // ALU 2nd operand source, 0 for rs2, 1 for immediate
     input inst30,  // 30th bit of instruction
     input [`FUNCT3_WIDTH-1:0] funct3,  // function 3
@@ -32,7 +33,9 @@ module EX (  // Execution Unit, execute operation or calculate address
         .rst(rst),
         .read_data1(read_data1),
         .read_data2(read_data2),
+        .pc(pc),
         .immediate(immediate),
+        .aluinputpc(aluinputpc),
         .alusrc(alusrc),
         .inst30(inst30),
         .funct3(funct3),

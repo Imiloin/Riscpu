@@ -6,7 +6,7 @@ module IF (  // Instruction Fetch Unit, fetches the next instruction to be execu
     input rst,
     input [`XLEN-1:0] inst_i,  // input instruction from instruction memory
     input pcsrc,  // select the source of pc
-    input [`PC_WIDTH-1:0] sum,  // pc + imm
+    input [`PC_WIDTH-1:0] pctarget,  // pc + imm (branch, jal) or alu_result (jalr)
     output [`PC_WIDTH-1:0] pcplus4,  // pc + 4
     output reg [`PC_WIDTH-1:0] pc,  // next pc to be executed
     output [`XLEN-1:0] inst_addr_o,  // instruction fetch address
@@ -25,7 +25,7 @@ module IF (  // Instruction Fetch Unit, fetches the next instruction to be execu
         if (rst) begin
             pc <= 0;  // or -4?
         end else if (pcsrc) begin
-            pc <= sum;
+            pc <= pctarget;
         end else begin
             pc <= pcplus4;
         end

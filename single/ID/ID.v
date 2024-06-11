@@ -16,7 +16,9 @@ module ID (  // Instruction Decode Unit, decode the instruction or read the regi
     output memwrite,  // memory write or not
     output alusrc,  // ALU 2nd operand source, 0 for rs2, 1 for immediate
     // output regwrite,  // register write or not
+    output aluinputpc,  // use pc as ALU 1st input, for auipc instruction
     output getpcplus4,  // get pc + 4 at MEM stage, for jal instruction
+    output alu2pc,  // use ALU result as pc, for jalr instruction
     output [`REG_DATA_WIDTH-1:0] read_data1,  // data from register file or memory for rs1
     output [`REG_DATA_WIDTH-1:0] read_data2,  // data from register file or memory for rs2
     output [`IMM_WIDTH-1:0] immediate  // immediate value from ImmGen
@@ -49,7 +51,9 @@ module ID (  // Instruction Decode Unit, decode the instruction or read the regi
         .memwrite(memwrite),
         .alusrc(alusrc),
         .regwrite(regwrite),
-        .getpcplus4(getpcplus4)
+        .aluinputpc(aluinputpc),
+        .getpcplus4(getpcplus4),
+        .alu2pc(alu2pc)
     );
 
     // instanciate the register file

@@ -24,7 +24,7 @@ module riscv (
 
     // instanciate IF
     wire pcsrc;
-    wire [`PC_WIDTH-1:0] sum;
+    wire [`PC_WIDTH-1:0] pctarget;
     wire [`PC_WIDTH-1:0] pcplus4;
     wire [`PC_WIDTH-1:0] pc;
     wire [`XLEN-1:0] instruction;
@@ -33,7 +33,7 @@ module riscv (
         .rst(rst),
         .inst_i(inst_i),
         .pcsrc(pcsrc),
-        .sum(sum),
+        .pctarget(pctarget),
         .pcplus4(pcplus4),
         .pc(pc),
         .inst_addr_o(inst_addr_o),
@@ -53,7 +53,9 @@ module riscv (
     wire memwrite;
     wire alusrc;
     // wire regwrite;
+    wire aluinputpc;
     wire getpcplus4;
+    wire alu2pc;
     wire [`REG_DATA_WIDTH-1:0] read_data1;
     wire [`REG_DATA_WIDTH-1:0] read_data2;
     wire [`IMM_WIDTH-1:0] immediate;
@@ -72,13 +74,16 @@ module riscv (
         .memwrite(memwrite),
         .alusrc(alusrc),
         // .regwrite(regwrite),  // not used for single-cycle implementation
+        .aluinputpc(aluinputpc),
         .getpcplus4(getpcplus4),
+        .alu2pc(alu2pc),
         .read_data1(read_data1),
         .read_data2(read_data2),
         .immediate(immediate)
     );
 
     // instanciate EX
+    wire [`PC_WIDTH-1:0] sum;
     wire alu_branch;
     wire [`REG_DATA_WIDTH-1:0] alu_result;
     EX u_EX (
@@ -88,6 +93,7 @@ module riscv (
         .read_data1(read_data1),
         .read_data2(read_data2),
         .immediate(immediate),
+        .aluinputpc(aluinputpc),
         .alusrc(alusrc),
         .inst30(inst30),
         .funct3(funct3),
@@ -110,12 +116,15 @@ module riscv (
         .getpcplus4(getpcplus4),
         .branch(branch),
         .alu_branch(alu_branch),
+        .sum(sum),
+        .alu2pc(alu2pc),
         .data_we_o(data_we_o),
         .data_ce_o(data_ce_o),
         .pcsrc(pcsrc),
         .data_addr_o(data_addr_o),
         .data_o(data_o),
-        .wb_data(wb_data)
+        .wb_data(wb_data),
+        .pctarget(pctarget)
     );
 
     // instanciate WB

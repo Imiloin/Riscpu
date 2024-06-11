@@ -28,7 +28,7 @@
 
 
 `define OP_REG 5'b01100	// R-type, register operation
-// `define OP_JALR 5'b11001 // I-type, jump and link register
+`define OP_JALR 5'b11001 // I-type, jump and link register  //////
 `define OP_IMML 5'b00000 // I-type, load
 `define OP_IMMOP 5'b00100 // I-type, immediate operation
 // `define OP_IMMFENCE 5'b00011 // I-type, fence instruction
