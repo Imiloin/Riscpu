@@ -54,7 +54,7 @@ module riscv (
     wire alusrc;
     // wire regwrite;
     wire aluinputpc;
-    wire getpcplus4;
+    wire branchjalx;
     wire alu2pc;
     wire [`REG_DATA_WIDTH-1:0] read_data1;
     wire [`REG_DATA_WIDTH-1:0] read_data2;
@@ -75,7 +75,7 @@ module riscv (
         .alusrc(alusrc),
         // .regwrite(regwrite),  // not used for single-cycle implementation
         .aluinputpc(aluinputpc),
-        .getpcplus4(getpcplus4),
+        .branchjalx(branchjalx),
         .alu2pc(alu2pc),
         .read_data1(read_data1),
         .read_data2(read_data2),
@@ -113,7 +113,7 @@ module riscv (
         .alu_result(alu_result),
         .read_data2(read_data2),
         .pcplus4(pcplus4),
-        .getpcplus4(getpcplus4),
+        .branchjalx(branchjalx),
         .branch(branch),
         .alu_branch(alu_branch),
         .sum(sum),

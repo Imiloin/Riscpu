@@ -9,7 +9,7 @@ module MEM (  // Memory module, access the data memory
     input [`REG_DATA_WIDTH-1:0] alu_result,  // output of ALU, result of operation
     input [`REG_DATA_WIDTH-1:0] read_data2,  // data from register file or memory for rs2
     input [`PC_WIDTH-1:0] pcplus4,  // pc + 4 form IF
-    input getpcplus4,  // use pc + 4 when memtoreg = 0
+    input branchjalx,  // use pc + 4 when memtoreg = 0
     input branch,  // branch from control unit
     input alu_branch,  // branch from ALU
     input [`PC_WIDTH-1:0] sum, // pc + imm
@@ -31,7 +31,7 @@ module MEM (  // Memory module, access the data memory
 
     assign data_o = read_data2;
 
-    assign wb_data = getpcplus4? pcplus4 : alu_result;  // pc + 4 for jal, x[rd] = pc + 4
+    assign wb_data = branchjalx? pcplus4 : alu_result;  // pc + 4 for jal, x[rd] = pc + 4
 
     assign pctarget = alu2pc? alu_result : sum;  // use alu result as pc for jalr
 
@@ -40,7 +40,7 @@ module MEM (  // Memory module, access the data memory
         .rst(rst),
         .branch(branch),
         .alu_branch(alu_branch),
-        .alu2pc(alu2pc),
+        .branchjalx(branchjalx),
         .pcsrc(pcsrc)
     );
 

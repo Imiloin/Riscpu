@@ -36,6 +36,6 @@
 // `define OP_IMMCSR 5'b11100 // I-type, control and status register instruction
 `define OP_STORE 5'b01000	// S-type, store int
 `define OP_BRANCH 5'b11000	// B-type, branch (and jalr)
-`define OP_LUI 5'b01101	// U-type, load upper immediate
+`define OP_LUI 5'b01101	// U-type, load upper immediate  //////
 `define OP_AUIPC 5'b00101	// U-type, add upper immediate to pc
 `define OP_JAL 5'b11011	// J-type, jump and link

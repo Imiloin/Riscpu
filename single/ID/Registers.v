@@ -42,7 +42,7 @@ module Registers (
     integer i;
 
     always @(posedge clk) begin
-        if (regwrite) begin
+        if (regwrite && rd != 0) begin
             $display("Time: %t, Written data: %h(%d) to register %d", $time,
                      write_data, write_data, rd);
         end

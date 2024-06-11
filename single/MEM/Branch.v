@@ -6,10 +6,10 @@ module Branch (
     input  rst,
     input  branch,
     input  alu_branch,
-    input alu2pc,
+    input  branchjalx,
     output pcsrc
 );
 
-    assign pcsrc = alu2pc ? 1'b1 : branch & alu_branch;
+    assign pcsrc = branchjalx || (branch & alu_branch);
 
 endmodule

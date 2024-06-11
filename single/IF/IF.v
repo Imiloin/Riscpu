@@ -10,17 +10,17 @@ module IF (  // Instruction Fetch Unit, fetches the next instruction to be execu
     output [`PC_WIDTH-1:0] pcplus4,  // pc + 4
     output reg [`PC_WIDTH-1:0] pc,  // next pc to be executed
     output [`XLEN-1:0] inst_addr_o,  // instruction fetch address
-    output inst_ce_o,   // instruction fetch enable
+    output inst_ce_o,  // instruction fetch enable
     output [`XLEN-1:0] instruction  // instruction fetched
 );
-    
+
     assign inst_ce_o = ~rst;  // enable instruction fetch by default
-    
+
     assign instruction = inst_i;
-    
-    /////// should pc be a reg or wire?
+
     assign pcplus4 = pc + 4;
 
+    // reg
     always @(posedge clk or posedge rst) begin
         if (rst) begin
             pc <= 0;  // or -4?
@@ -32,5 +32,15 @@ module IF (  // Instruction Fetch Unit, fetches the next instruction to be execu
     end
 
     assign inst_addr_o = pc;
+
+    // Debugging
+    `include "riscv_def.v"
+`ifdef DEBUG
+    always @(posedge clk) begin
+        if (~rst && pcsrc) begin
+            $display("Time: %t, PC jump to %h", $time, pctarget);
+        end
+    end
+`endif
 
 endmodule

@@ -17,7 +17,7 @@ module ID (  // Instruction Decode Unit, decode the instruction or read the regi
     output alusrc,  // ALU 2nd operand source, 0 for rs2, 1 for immediate
     // output regwrite,  // register write or not
     output aluinputpc,  // use pc as ALU 1st input, for auipc instruction
-    output getpcplus4,  // get pc + 4 at MEM stage, for jal instruction
+    output branchjalx,  // is a jal or jalr instruction
     output alu2pc,  // use ALU result as pc, for jalr instruction
     output [`REG_DATA_WIDTH-1:0] read_data1,  // data from register file or memory for rs1
     output [`REG_DATA_WIDTH-1:0] read_data2,  // data from register file or memory for rs2
@@ -31,12 +31,14 @@ module ID (  // Instruction Decode Unit, decode the instruction or read the regi
     wire [`RS_WIDTH-1:0] rs1;  // source register 1
     wire [`OPCODE_WIDTH-1:0] opcode;  // operation code
 
+    assign opcode = instruction[`OPCODE];
+    
     // assign funct7 = instruction[`FUNCT7];
     assign rs2 = instruction[`RS2];
-    assign rs1 = instruction[`RS1];
+    assign rs1 = (opcode[6:2] == `OP_LUI) ? 0 : instruction[`RS1];  // for lui, rs1 is 0, just add 0 and imm
     assign funct3 = instruction[`FUNCT3];
     assign rd = instruction[`RD];
-    assign opcode = instruction[`OPCODE];
+    
 
     wire regwrite;  // register write or not
     // instanciate Control module
@@ -52,7 +54,7 @@ module ID (  // Instruction Decode Unit, decode the instruction or read the regi
         .alusrc(alusrc),
         .regwrite(regwrite),
         .aluinputpc(aluinputpc),
-        .getpcplus4(getpcplus4),
+        .branchjalx(branchjalx),
         .alu2pc(alu2pc)
     );
 

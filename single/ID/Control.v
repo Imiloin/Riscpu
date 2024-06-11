@@ -13,7 +13,7 @@ module Control (
     output alusrc,
     output regwrite,
     output reg aluinputpc,  // use pc as alu input 1 (auipc)
-    output reg getpcplus4,  // use pc + 4 when memtoreg = 0 (jal)
+    output reg branchjalx,  // use pc + 4 when memtoreg = 0, and set pcsrc = 1 (jal, jalr)
     output reg alu2pc  // use alu result as pc (jalr)
 );
 
@@ -29,7 +29,7 @@ module Control (
             `OP_IMMOP: ctrlcode = 8'b10100011;  // I-type, addi like
             `OP_STORE: ctrlcode = 8'b10001000;  // S-type
             `OP_BRANCH: ctrlcode = 8'b00000101;  // B-type  
-            // `OP_LUI: ctrlcode = 8'b00000000;  // U-type //////
+            `OP_LUI: ctrlcode = 8'b10100000;  // U-type //////
             `OP_AUIPC: ctrlcode = 8'b10100000;  // U-type //////
             `OP_JAL: ctrlcode = 8'b00100100;  // J-type  
             default: ctrlcode = 8'b00000000;
@@ -45,10 +45,10 @@ module Control (
     end
 
     always @(opcode) begin
-        if (opcode[6:2] == `OP_JAL) begin
-            getpcplus4 = 1'b1;
+        if (opcode[6:2] == `OP_JAL || opcode[6:2] == `OP_JALR) begin
+            branchjalx = 1'b1;
         end else begin
-            getpcplus4 = 1'b0;
+            branchjalx = 1'b0;
         end
     end
 
