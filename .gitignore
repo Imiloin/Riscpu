@@ -1,28 +1,28 @@
-; VSCode
+# VSCode
 .vscode/
 *.code-workspace
 
-; TEMP
+# TEMP
 temp/
 
-; Ignore all log files
+# Ignore all log files
 *.log
 
-; Ignore all compiled files
+# Ignore all compiled files
 *.out
 
-; Ignore all temporary files created by the editor
+# Ignore all temporary files created by the editor
 *~
 
-; Ignore assembly and machine code files
+# Ignore assembly and machine code files
 *.asm
 *.txt
 
 
-; ignore ModelSim generated files and directories (temp files and so on)
+# ignore ModelSim generated files and directories (temp files and so on)
 [_@]*
 
-; ignore compilation output of ModelSim
+# ignore compilation output of ModelSim
 *.mti
 *.dat
 *.dbs
@@ -34,7 +34,7 @@ temp/
 *.bsf
 *.mpf
 
-; ignore simulation output of ModelSim
+# ignore simulation output of ModelSim
 wlf*
 *.wlf
 *.vstf
