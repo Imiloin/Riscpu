@@ -73,7 +73,7 @@ module riscv (
         .aluop(aluop),
         .memwrite(memwrite),
         .alusrc(alusrc),
-        // .regwrite(regwrite),  // not used for single-cycle implementation
+        // .regwrite(regwrite),  // not used for single-cycle implementation (defined in ID)
         .aluinputpc(aluinputpc),
         .branchjalx(branchjalx),
         .alu2pc(alu2pc),

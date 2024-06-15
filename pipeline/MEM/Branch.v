@@ -8,11 +8,17 @@ module Branch (
     input  alu_branch,
     input  branchjalx,
     output pcsrc,
-    output flush
+    output ifflush,
+    output idflush,
+    output exflush
 );
 
     assign pcsrc = branchjalx || (branch & alu_branch);
-    // flush when branch is taken
-    assign flush = pcsrc;
+    // flush the instruction stored when branch is taken
+    wire flush;
+    assign flush = branchjalx || (branch & alu_branch);
+    assign ifflush = flush;
+    assign idflush = flush;
+    assign exflush = flush;
 
 endmodule
