@@ -5,21 +5,22 @@ module ID (  // Instruction Decode Unit, decode the instruction or read the regi
     input clk,
     input rst,
     input [`XLEN-1:0] instruction,  // instruction to be decoded
-    input [`REG_DATA_WIDTH-1:0] write_data,  // write back data from WB stage
+    input [`RS_WIDTH-1:0] rd_wb,  // rd from WB stage
+    input [`REG_DATA_WIDTH-1:0] write_data_wb,  // write back data from WB stage
     input [`RS_WIDTH-1:0] rd_ex,  // rd from EX stage
     input memread_ex,  // memread from EX stage
     output inst30,  // 30th bit of instruction
     output [`FUNCT3_WIDTH-1:0] funct3,  // function 3
     output [`RS_WIDTH-1:0] rd,  // destination register
-    output [`RS_WIDTH-1:0] rs2;  // source register 2
-    output [`RS_WIDTH-1:0] rs1;  // source register 1
+    output [`RS_WIDTH-1:0] rs2,  // source register 2
+    output [`RS_WIDTH-1:0] rs1,  // source register 1
     output branch,  // branch or not
     output memread,  // memory read or not
     output memtoreg,  // memory to register or not
     output [1:0] aluop,  // ALU operation, 00 add to get an address, 01 B type, 10 R type, 11 I type(operation)
     output memwrite,  // memory write or not
     output alusrc,  // ALU 2nd operand source, 0 for rs2, 1 for immediate
-    output regwrite,  // register write or not
+    output regwrite_wb,  // register write or not
     output aluinputpc,  // use pc as ALU 1st input, for auipc instruction
     output branchjalx,  // is a jal or jalr instruction
     output alu2pc,  // use ALU result as pc, for jalr instruction
@@ -57,7 +58,7 @@ module ID (  // Instruction Decode Unit, decode the instruction or read the regi
         .aluop(aluop),
         .memwrite(memwrite),
         .alusrc(alusrc),
-        .regwrite(regwrite),
+        .regwrite(regwrite_wb),
         .aluinputpc(aluinputpc),
         .branchjalx(branchjalx),
         .alu2pc(alu2pc)
@@ -70,8 +71,8 @@ module ID (  // Instruction Decode Unit, decode the instruction or read the regi
         .regwrite(regwrite),
         .rs1(rs1),
         .rs2(rs2),
-        .rd(rd),
-        .write_data(write_data),
+        .rd(rd_wb),
+        .write_data(write_data_wb),
         .read_data1(read_data1),
         .read_data2(read_data2)
     );

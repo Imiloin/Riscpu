@@ -8,7 +8,7 @@ module ALUMux (
     input [`REG_DATA_WIDTH-1:0] read_data2_ex,
     input [`PC_WIDTH-1:0] pc_ex,
     input [`IMM_WIDTH-1:0] immediate_ex,
-    input [`REG_DATA_WIDTH-1:0] wb_data_mem,  // data to be written back at MEM stage
+    input [`REG_DATA_WIDTH-1:0] wb_data_mem,  // data to be written back at MEM stage when memtoreg is 0
     input [`REG_DATA_WIDTH-1:0] write_data_wb,  // data to be written back at WB stage
     input aluinputpc_ex,
     input alusrc_ex,

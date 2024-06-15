@@ -14,7 +14,7 @@ module Branch (
 );
 
     assign pcsrc = branchjalx || (branch & alu_branch);
-    // flush the instruction stored when branch is taken
+    // flush the instruction and control signals stored when branch is taken
     wire flush;
     assign flush = branchjalx || (branch & alu_branch);
     assign ifflush = flush;
