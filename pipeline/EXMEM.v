@@ -6,6 +6,7 @@ module EXMEM (
     input rst,
     input exflush,  // flush the EX/MEM pipeline
     // from EX stage
+    input [`REG_DATA_WIDTH-1:0] read_data2_ex,
     input [`PC_WIDTH-1:0] sum_ex,
     input alu_branch_ex,
     input [`REG_DATA_WIDTH-1:0] alu_result_ex,
@@ -21,6 +22,7 @@ module EXMEM (
     input alu2pc_ex,
     input [`PC_WIDTH-1:0] pcplus4_ex,
     // outputs
+    output reg [`REG_DATA_WIDTH-1:0] read_data2_mem,
     output reg [`PC_WIDTH-1:0] sum_mem,
     output reg alu_branch_mem,
     output reg [`REG_DATA_WIDTH-1:0] alu_result_mem,
@@ -38,6 +40,7 @@ module EXMEM (
 
     always @(posedge clk or posedge rst) begin
         if (rst) begin
+            read_data2_mem <= 0;
             sum_mem <= 0;
             alu_branch_mem <= 0;
             alu_result_mem <= 0;
@@ -52,6 +55,7 @@ module EXMEM (
             alu2pc_mem <= 0;
             pcplus4_mem <= 0;
         end else if (exflush) begin
+            read_data2_mem <= 0;
             sum_mem <= 0;
             alu_branch_mem <= 0;
             alu_result_mem <= 0;
@@ -66,6 +70,7 @@ module EXMEM (
             alu2pc_mem <= 0;
             pcplus4_mem <= 0;
         end else begin
+            read_data2_mem <= read_data2_ex;
             sum_mem <= sum_ex;
             alu_branch_mem <= alu_branch_ex;
             alu_result_mem <= alu_result_ex;
