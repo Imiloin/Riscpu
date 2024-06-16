@@ -21,6 +21,7 @@ module EX (  // Execution Unit, execute operation or calculate address
     input [`RS_WIDTH-1:0] rd_wb,  // rd from WB stage
     input regwrite_mem,  // regwrite from MEM stage
     input regwrite_wb,  // regwrite from WB stage
+    output [`REG_DATA_WIDTH-1:0] read_data2_forwarded,  // rs2 data after forwarding
     output [`PC_WIDTH-1:0] sum,  // sum of imm and pc
     output alu_branch,  // output of ALU, branch condition meets/not meets
     output [`REG_DATA_WIDTH-1:0] alu_result  // output of ALU, result of operation
@@ -53,6 +54,7 @@ module EX (  // Execution Unit, execute operation or calculate address
         .alusrc_ex(alusrc),
         .forwarda(forwarda),
         .forwardb(forwardb),
+        .read_data2_forwarded(read_data2_forwarded),
         .alu_op1(alu_op1),
         .alu_op2(alu_op2)
     );

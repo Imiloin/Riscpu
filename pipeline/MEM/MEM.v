@@ -7,7 +7,7 @@ module MEM (  // Memory module, access the data memory
     input memread,  // memory read or not
     input memwrite,  // memory write or not
     input [`REG_DATA_WIDTH-1:0] alu_result,  // output of ALU, result of operation
-    input [`REG_DATA_WIDTH-1:0] read_data2,  // data from register file or memory for rs2
+    input [`REG_DATA_WIDTH-1:0] read_data2_forwarded,  // forwarded read data 2
     input [`PC_WIDTH-1:0] pcplus4,  // pc + 4 form IF
     input branchjalx,  // use pc + 4 when memtoreg = 0
     input branch,  // branch from control unit
@@ -26,13 +26,13 @@ module MEM (  // Memory module, access the data memory
     output [`PC_WIDTH-1:0] pctarget  // target address for branch
 );
 
-    assign data_ce_o = memread || memwrite;  // enable data memory by default
+    assign data_ce_o = memread || memwrite;
 
     assign data_we_o = memwrite;
 
     assign data_addr_o = alu_result;
 
-    assign data_o = read_data2;
+    assign data_o = read_data2_forwarded;
 
     assign wb_data = branchjalx? pcplus4 : alu_result;  // pc + 4 for jal, x[rd] = pc + 4
 

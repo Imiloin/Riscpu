@@ -14,12 +14,12 @@ module ALUMux (
     input alusrc_ex,
     input [1:0] forwarda,
     input [1:0] forwardb,
+    output reg [`REG_DATA_WIDTH-1:0] read_data2_forwarded,
     output signed [`REG_DATA_WIDTH-1:0] alu_op1,
     output signed [`REG_DATA_WIDTH-1:0] alu_op2
 );
 
     reg [`REG_DATA_WIDTH-1:0] read_data1_forwarded;
-    reg [`REG_DATA_WIDTH-1:0] read_data2_forwarded;
 
     always @(*) begin
         case (forwarda)

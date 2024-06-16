@@ -22,7 +22,7 @@ module Control (
     
     assign {alusrc, memtoreg, regwrite, memread, memwrite, branch, aluop} = ctrlcode;
 
-    always @(opcode) begin
+    always @(*) begin
         if (clearcontrol || opcode[1:0] == 2'b00) begin
             ctrlcode = 8'b00000000;
         end else begin
@@ -41,7 +41,7 @@ module Control (
         end
     end
 
-    always @(opcode) begin
+    always @(*) begin
         if (clearcontrol) begin
             aluinputpc = 1'b0;
         end else if (opcode[6:2] == `OP_AUIPC) begin
@@ -51,7 +51,7 @@ module Control (
         end
     end
 
-    always @(opcode) begin
+    always @(*) begin
         if (clearcontrol) begin
             branchjalx = 1'b0;
         end else if (opcode[6:2] == `OP_JAL || opcode[6:2] == `OP_JALR) begin
@@ -61,7 +61,7 @@ module Control (
         end
     end
 
-    always @(opcode) begin
+    always @(*) begin
         if (clearcontrol) begin
             alu2pc = 1'b0;
         end else if (opcode[6:2] == `OP_JALR) begin
