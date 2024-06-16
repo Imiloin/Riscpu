@@ -24,8 +24,8 @@ module ALUMux (
     always @(*) begin
         case (forwarda)
             2'b00:   read_data1_forwarded = read_data1_ex;
-            2'b01:   read_data1_forwarded = wb_data_mem;
-            2'b10:   read_data1_forwarded = write_data_wb;
+            2'b10:   read_data1_forwarded = wb_data_mem;
+            2'b01:   read_data1_forwarded = write_data_wb;
             2'b11:   read_data1_forwarded = read_data1_ex;
             default: read_data1_forwarded = 0;  // should never happen
         endcase
@@ -34,8 +34,8 @@ module ALUMux (
     always @(*) begin
         case (forwardb)
             2'b00:   read_data2_forwarded = read_data2_ex;
-            2'b01:   read_data2_forwarded = wb_data_mem;
-            2'b10:   read_data2_forwarded = write_data_wb;
+            2'b10:   read_data2_forwarded = wb_data_mem;
+            2'b01:   read_data2_forwarded = write_data_wb;
             2'b11:   read_data2_forwarded = read_data2_ex;
             default: read_data2_forwarded = 0;  // should never happen
         endcase

@@ -23,7 +23,7 @@ module Control (
     assign {alusrc, memtoreg, regwrite, memread, memwrite, branch, aluop} = ctrlcode;
 
     always @(opcode) begin
-        if (clearcontrol) begin
+        if (clearcontrol || opcode[1:0] == 2'b00) begin
             ctrlcode = 8'b00000000;
         end else begin
         case (opcode[6:2])

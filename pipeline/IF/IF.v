@@ -24,7 +24,7 @@ module IF (  // Instruction Fetch Unit, fetches the next instruction to be execu
     // pc reg
     always @(posedge clk or posedge rst) begin
         if (rst) begin
-            pc <= 0;  // or -4?
+            pc <= 0;  // or -4? //////
         end else if (pcwrite) begin
             if (pcsrc) begin
                 pc <= pctarget;

@@ -9,6 +9,7 @@ module ID (  // Instruction Decode Unit, decode the instruction or read the regi
     input [`REG_DATA_WIDTH-1:0] write_data_wb,  // write back data from WB stage
     input [`RS_WIDTH-1:0] rd_ex,  // rd from EX stage
     input memread_ex,  // memread from EX stage
+    input regwrite_wb,  // regwrite from WB stage
     output inst30,  // 30th bit of instruction
     output [`FUNCT3_WIDTH-1:0] funct3,  // function 3
     output [`RS_WIDTH-1:0] rd,  // destination register
@@ -20,7 +21,7 @@ module ID (  // Instruction Decode Unit, decode the instruction or read the regi
     output [1:0] aluop,  // ALU operation, 00 add to get an address, 01 B type, 10 R type, 11 I type(operation)
     output memwrite,  // memory write or not
     output alusrc,  // ALU 2nd operand source, 0 for rs2, 1 for immediate
-    output regwrite_wb,  // register write or not
+    output regwrite,  // register write or not
     output aluinputpc,  // use pc as ALU 1st input, for auipc instruction
     output branchjalx,  // is a jal or jalr instruction
     output alu2pc,  // use ALU result as pc, for jalr instruction
@@ -45,7 +46,6 @@ module ID (  // Instruction Decode Unit, decode the instruction or read the regi
 
 
     // instanciate Control module
-    wire regwrite;  // register write or not
     wire clearcontrol;  // clear control signals, from data hazard detection
     Control u_control (
         .clk(clk),
@@ -58,7 +58,7 @@ module ID (  // Instruction Decode Unit, decode the instruction or read the regi
         .aluop(aluop),
         .memwrite(memwrite),
         .alusrc(alusrc),
-        .regwrite(regwrite_wb),
+        .regwrite(regwrite),
         .aluinputpc(aluinputpc),
         .branchjalx(branchjalx),
         .alu2pc(alu2pc)
@@ -68,7 +68,7 @@ module ID (  // Instruction Decode Unit, decode the instruction or read the regi
     Registers u_registers (
         .clk(clk),
         .rst(rst),
-        .regwrite(regwrite),
+        .regwrite(regwrite_wb),
         .rs1(rs1),
         .rs2(rs2),
         .rd(rd_wb),

@@ -31,8 +31,8 @@ module Registers (
             read_data1 = 0;
             read_data2 = 0;
         end else begin
-            read_data1 = registers[rs1];
-            read_data2 = registers[rs2];
+            read_data1 = (rs1 == rd) ? write_data : registers[rs1];
+            read_data2 = (rs2 == rd) ? write_data : registers[rs2];
         end
     end
 

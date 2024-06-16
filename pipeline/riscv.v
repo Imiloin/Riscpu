@@ -64,6 +64,7 @@ module riscv (
     wire [`REG_DATA_WIDTH-1:0] write_data_wb;
     wire [`RS_WIDTH-1:0] rd_ex;
     wire memread_ex;
+    wire regwrite_wb;
     wire inst30_id;
     wire [`FUNCT3_WIDTH-1:0] funct3_id;
     wire [`RS_WIDTH-1:0] rd_id;
@@ -90,6 +91,7 @@ module riscv (
         .write_data_wb(write_data_wb),
         .rd_ex(rd_ex),
         .memread_ex(memread_ex),
+        .regwrite_wb(regwrite_wb),
         .inst30(inst30_id),
         .funct3(funct3_id),
         .rd(rd_id),
@@ -101,7 +103,7 @@ module riscv (
         .aluop(aluop_id),
         .memwrite(memwrite_id),
         .alusrc(alusrc_id),
-        .regwrite_wb(regwrite_id),
+        .regwrite(regwrite_id),
         .aluinputpc(aluinputpc_id),
         .branchjalx(branchjalx_id),
         .alu2pc(alu2pc_id),
@@ -182,7 +184,6 @@ module riscv (
     wire [`REG_DATA_WIDTH-1:0] wb_data_mem;
     wire [`RS_WIDTH-1:0] rd_mem;
     wire regwrite_mem;
-    wire regwrite_wb;
     wire [`PC_WIDTH-1:0] sum_ex;
     wire alu_branch_ex;
     wire [`REG_DATA_WIDTH-1:0] alu_result_ex;
@@ -288,13 +289,16 @@ module riscv (
     // instanciate MEM/WB
     wire [`REG_DATA_WIDTH-1:0] wb_data_wb;
     wire memtoreg_wb;
+    wire [`REG_DATA_WIDTH-1:0] data_i_wb;
     MEMWB u_MEMWB (
         .clk(clk),
         .rst(rst),
+        .data_i_mem(data_i),
         .wb_data_mem(wb_data_mem),
         .rd_mem(rd_mem),
         .memtoreg_mem(memtoreg_mem),
         .regwrite_mem(regwrite_mem),
+        .data_i_wb(data_i_wb),
         .wb_data_wb(wb_data_wb),
         .rd_wb(rd_wb),
         .memtoreg_wb(memtoreg_wb),
@@ -305,7 +309,7 @@ module riscv (
     WB u_WB (
         .clk(clk),
         .rst(rst),
-        .data_i(data_i),
+        .data_i(data_i_wb),
         .wb_data(wb_data_wb),
         .memtoreg(memtoreg_wb),
         .write_data(write_data_wb)

@@ -15,20 +15,20 @@ module Forwarding(
 );
 
     always @(*) begin
-        if (rd_mem == rs1_ex && regwrite_mem) begin
-            forwarda = 2'b01;
-        end else if (rd_wb == rs1_ex && regwrite_wb) begin
+        if (regwrite_mem && rd_mem != 0 && rd_mem == rs1_ex) begin
             forwarda = 2'b10;
+        end else if (regwrite_wb && rd_wb != 0 && rd_wb == rs1_ex) begin
+            forwarda = 2'b01;
         end else begin
             forwarda = 2'b00;
         end
     end
 
     always @(*) begin
-        if (rd_mem == rs2_ex && regwrite_mem) begin
-            forwardb = 2'b01;
-        end else if (rd_wb == rs2_ex && regwrite_wb) begin
+        if (regwrite_mem && rd_mem != 0 && rd_mem == rs2_ex) begin
             forwardb = 2'b10;
+        end else if (regwrite_wb && rd_wb != 0 && rd_wb == rs2_ex) begin
+            forwardb = 2'b01;
         end else begin
             forwardb = 2'b00;
         end
