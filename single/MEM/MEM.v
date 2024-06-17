@@ -4,7 +4,7 @@
 module MEM (  // Memory module, access the data memory
     input clk,
     input rst,
-    input memread,  // memory read or not ////// not used
+    input memread,  // memory read or not
     input memwrite,  // memory write or not
     input [`REG_DATA_WIDTH-1:0] alu_result,  // output of ALU, result of operation
     input [`REG_DATA_WIDTH-1:0] read_data2,  // data from register file or memory for rs2
@@ -23,7 +23,7 @@ module MEM (  // Memory module, access the data memory
     output [`PC_WIDTH-1:0] pctarget  // target address for branch
 );
 
-    assign data_ce_o = ~rst;  // enable data memory by default
+    assign data_ce_o = memread || memwrite;
 
     assign data_we_o = memwrite;
 

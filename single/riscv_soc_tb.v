@@ -78,6 +78,11 @@ module riscv_soc_tb ();
                      $time, data_mem0.addr, data_mem0.data_o, data_mem0.data_o);
         end
     end
+
+    initial begin
+        #100000;
+        $writememh("data_mem_dump.txt", data_mem0.data);
+    end
 `endif
 
 endmodule

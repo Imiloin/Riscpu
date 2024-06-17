@@ -1,6 +1,7 @@
 # VSCode
 .vscode/
 *.code-workspace
+.VSCodeCounter/
 
 # TEMP
 temp/
