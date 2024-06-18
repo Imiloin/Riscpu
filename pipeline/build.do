@@ -1,3 +1,3 @@
 vlib work
 vmap work
-vlog -f compile.f
+vlog +define+DEBUG -timescale "1ps / 1ps" -f compile.f

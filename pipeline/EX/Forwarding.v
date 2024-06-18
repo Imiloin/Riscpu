@@ -1,7 +1,7 @@
-`include "riscv_def.v"
+`include "../riscv_def.v"
 
 
-module Forwarding(
+module Forwarding (
     input clk,
     input rst,
     input [`RS_WIDTH-1:0] rs1_ex,

@@ -1,9 +1,4 @@
 +incdir+./
-+incdir+./IF/
-+incdir+./ID/
-+incdir+./EX/
-+incdir+./MEM/
-+incdir+./WB/
 
 ./*.v
 ./IF/*.v

@@ -1,4 +1,4 @@
-`include "riscv_def.v"
+`include "../riscv_def.v"
 
 
 module IF (  // Instruction Fetch Unit, fetches the next instruction to be executed
@@ -34,7 +34,7 @@ module IF (  // Instruction Fetch Unit, fetches the next instruction to be execu
     assign inst_addr_o = pc;
 
     // Debugging
-    `include "riscv_def.v"
+    `include "../riscv_def.v"
 `ifdef DEBUG
     always @(posedge clk) begin
         if (~rst && pcsrc) begin

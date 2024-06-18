@@ -1,4 +1,4 @@
-`include "riscv_def.v"
+`include "../riscv_def.v"
 
 
 module ID (  // Instruction Decode Unit, decode the instruction or read the register file

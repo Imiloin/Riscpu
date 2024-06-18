@@ -1,4 +1,4 @@
-`include "riscv_def.v"
+`include "../riscv_def.v"
 
 
 module EX (  // Execution Unit, execute operation or calculate address
