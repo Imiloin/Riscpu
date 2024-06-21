@@ -2,20 +2,22 @@
 
 Riscpu 是一个五级流水 RISC-V 处理器的 RTL 实现，支持 RV32I 中的部分指令，目前支持的指令如下：
 
-| Type   | Instructions                                                 |
-| ------ | ------------------------------------------------------------ |
-| R-type | add, sub, sll, slt, sltu, xor, srl, sra, or, and             |
+| Type   | Instructions                                                   |
+| ------ | -------------------------------------------------------------- |
+| R-type | add, sub, sll, slt, sltu, xor, srl, sra, or, and               |
 | I-type | jalr, lw, addi, slti, sltiu, xori, ori, andi, slli, srli, srai |
-| S-type | sw                                                           |
-| B-type | beq, bne, blt, bge, bltu, bgeu                               |
-| U-type | lui, auipc                                                   |
-| J-type | jal                                                          |
+| S-type | sw                                                             |
+| B-type | beq, bne, blt, bge, bltu, bgeu                                 |
+| U-type | lui, auipc                                                     |
+| J-type | jal                                                            |
 
 代码保存在 `pipeline` 目录下。`data_mem.v` 和 `inst_mem.v` 中分别构建了一个数据存储和指令存储，其中包含不可综合语法，仅供测试使用。处理器的其余部分均可以综合。`single` 目录下还提供了一个未进行流水的单周期设计。
 
-设计参考了 \[1\] 中的讲解，做了部分修改。实际使用的处理器结构如下图所示：
+设计参考了 \[1\] 中的讲解，做了部分修改。实际使用的处理器结构如下图所示。
 
 ![riscpu](README.assets/riscpu.svg)
+
+该图片基于 \[1\] 的图 4.49 和 4.58 进行了重绘，黑色线条表示数据流，蓝色线条表示控制流，橙色线条为处理冒险的信号。
 
 ## Example
 
@@ -75,7 +77,7 @@ ff600093
 > [!WARNING]  
 > 在本项目中并没有直接指定代码段从 0x200 开始，而是从 0 开始。若使用了 auipc、jalr 等直接修改 PC 值的指令，由于许多汇编器会认为代码段的开始位置是 0x200，使用这些汇编器得到的机器码运行的结果可能与预期不同。
 
-项目提供了可用于 ModelSim 的 `do` 脚本进行快速仿真测试。首先在项目目录启动 ModelSim
+项目提供了可用于 ModelSim 的 `do` 脚本进行快速仿真测试。首先在 `pipeline` 目录启动 ModelSim
 
 ```shell
 cd <path to project>/pipeline
@@ -99,4 +101,6 @@ ModelSim> do sim.do
 
 ## References
 
-\[1\] David A Patterson, John L Hennessy. Computer organization and design: the hardware/software interface, risc-v edition. Morgan Kaufmann, 2018.
+\[1\] David A Patterson, John L Hennessy. Computer Organization and Design: The Hardware/Software Interface, RISC-V Edition. Morgan Kaufmann, 2018.
+
+\[2\] David Patterson, Andrew Waterman. The RISC-V Reader: An Open Architecture Atlas. Strawberry Canyon, 2017.
