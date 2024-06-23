@@ -91,13 +91,15 @@ ModelSim> do build.do
 ModelSim> do sim.do
 ```
 
-即可快速进行一轮仿真。仿真时默认添加了选项 `+define+DEBUG` （在 `build.do` 中），定义 `DEBUG` 会在仿真时额外打印部分调试信息，包括何时向寄存器写入数值、PC 的跳转等，在仿真结束后也会打印出寄存器中的内容，并生成一个 `data_mem_dump.txt` 文件，保存运行结束时 Data Memory 的内容。
+即可快速进行一轮仿真。编译时默认添加了选项 `+define+DEBUG` （在 `build.do` 中），定义 `DEBUG` 会在仿真时额外打印部分调试信息，包括何时向寄存器写入数值、PC 的跳转等，在仿真结束后也会打印出寄存器中的内容，并生成一个 `data_mem_dump.txt` 文件，保存运行结束时 Data Memory 的内容。
 
 ## Thanks
 
 [QtRvSim](https://github.com/cvut/qtrvsim)
 
-[spu32](https://github.com/maikmerten/spu32)
+[SPU32](https://github.com/maikmerten/spu32)
+
+[Verible](https://github.com/chipsalliance/verible)
 
 ## References
 
