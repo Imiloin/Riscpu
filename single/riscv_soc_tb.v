@@ -2,8 +2,19 @@
 
 module riscv_soc_tb ();
 
-    reg clk;
-    reg rst;
+    reg         clk;
+    reg         rst;
+
+    wire [31:0] inst_addr;
+    wire [31:0] inst;
+    wire        inst_ce;
+
+    wire        data_ce;
+    wire        data_we;
+    wire [31:0] data_addr;
+    wire [31:0] wdata;
+    wire [31:0] rdata;
+    wire [31:0] verify;
 
 
     initial begin
@@ -17,17 +28,6 @@ module riscv_soc_tb ();
         #100000 $display("---     result is %d         ---\n", verify);
         #1000 $stop;
     end
-
-    wire [31:0] inst_addr;
-    wire [31:0] inst;
-    wire        inst_ce;
-
-    wire        data_ce;
-    wire        data_we;
-    wire [31:0] data_addr;
-    wire [31:0] wdata;
-    wire [31:0] rdata;
-    wire [31:0] verify;
 
 
     riscv riscv0 (

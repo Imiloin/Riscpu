@@ -1,3 +1,6 @@
+`include "riscv_def.v"
+
+
 module riscv (
 
     input wire clk,
