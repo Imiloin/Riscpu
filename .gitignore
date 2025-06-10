@@ -47,3 +47,6 @@ cov*/
 transcript*
 sc_dpiheader.h
 vsim.dbg
+
+# Do not ignore data_mem.txt
+!data_mem.txt
